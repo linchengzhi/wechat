@@ -3,7 +3,7 @@ package wechat
 import "fmt"
 
 //提交订单
-func (pay *PayConfig) SubmitOrder(orderId, amount, desc, clientIp string) (*OrderRes, error) {
+func (pay *PayConfig) SubmitOrder(orderId, amount, desc, clientIp string) (*OrderResult, error) {
 	param := pay.SetOrderParam(orderId, amount, desc, clientIp, pay.TradeType)
 	signStr := Sign(param, pay.Token)
 	param["sign"] = signStr
@@ -31,7 +31,7 @@ func (pay *PayConfig) SubmitOrder(orderId, amount, desc, clientIp string) (*Orde
 }
 
 //查询
-func (pay *PayConfig) Query(orderId string) (*QueryRes, error) {
+func (pay *PayConfig) Query(orderId string) (*QueryResult, error) {
 	param := pay.SetQueryParam(orderId)
 	signStr := Sign(param, pay.Token)
 	param["sign"] = signStr
@@ -53,9 +53,9 @@ func (pay *PayConfig) Query(orderId string) (*QueryRes, error) {
 }
 
 //发送订单
-func (pay *PayConfig) SendOrder(param string) (*OrderRes, error) {
+func (pay *PayConfig) SendOrder(param string) (*OrderResult, error) {
 	url := fmt.Sprintf(Url_Pay_Order)
-	result := new(OrderRes)
+	result := new(OrderResult)
 	b, err := HttpPostXml(url, []byte(param), &result)
 	if err != nil {
 		return nil, err
@@ -67,9 +67,9 @@ func (pay *PayConfig) SendOrder(param string) (*OrderRes, error) {
 }
 
 //发送查询
-func (pay *PayConfig) SendQuery(param string) (*QueryRes, error) {
+func (pay *PayConfig) SendQuery(param string) (*QueryResult, error) {
 	url := fmt.Sprintf(Url_Pay_Query)
-	result := new(QueryRes)
+	result := new(QueryResult)
 	b, err := HttpPostXml(url, []byte(param), &result)
 	if err != nil {
 		return nil, err

@@ -7,6 +7,9 @@ import (
 
 //赋值access_token
 func (info *WechatInfo) UpdateAccessToken() error {
+	if info.AccessToken != "" && info.AccessTokenExpire > time.Now().Unix() {
+		return nil
+	}
 	token, err := info.GetAccessToken()
 	if err != nil {
 		return err
@@ -17,9 +20,9 @@ func (info *WechatInfo) UpdateAccessToken() error {
 }
 
 //获取公众号的access_token
-func (info *WechatInfo) GetAccessToken() (*AccessTokenRes, error) {
+func (info *WechatInfo) GetAccessToken() (*AccessToken, error) {
 	url := fmt.Sprintf(Url_AccessToken, info.AppId, info.AppSecret)
-	var result = new(AccessTokenRes)
+	var result = new(AccessToken)
 	b, err := HttpGetJson(url, &result)
 	if err != nil {
 		return nil, err
@@ -31,9 +34,9 @@ func (info *WechatInfo) GetAccessToken() (*AccessTokenRes, error) {
 }
 
 //获取个人的access_token
-func (info *WechatInfo)GetUserAccessToken(code string) (*UserAccessTokenRes, error) {
+func (info *WechatInfo)GetUserAccessToken(code string) (*UserAccessToken, error) {
 	url := fmt.Sprintf(Url_Oauth_AccessToken, info.AppId, info.AppSecret, code)
-	var result = new(UserAccessTokenRes)
+	var result = new(UserAccessToken)
 	b, err := HttpGetJson(url, &result)
 	if err != nil {
 		return nil, err

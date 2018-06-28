@@ -9,7 +9,7 @@ import (
 )
 
 //永久二维码 自定义参数
-func (info *WechatInfo)GetLimitQRCode(i ... interface{}) (*QrCodeRes, error){
+func (info *WechatInfo)GetLimitQRCode(i ... interface{}) (*QrCode, error){
 	param := []byte{}
 	if len(i) == 0 {
 		i = append(i, rand.Int())
@@ -28,7 +28,7 @@ func (info *WechatInfo)GetLimitQRCode(i ... interface{}) (*QrCodeRes, error){
 }
 
 //临时二维码 有效时间 自定义参数
-func (info *WechatInfo)GetNoLimitQRCode(t int64, i ...interface{}) (*QrCodeRes, error) {
+func (info *WechatInfo)GetNoLimitQRCode(t int64, i ...interface{}) (*QrCode, error) {
 	param := []byte{}
 	if len(i) == 0 {
 		i = append(i, int(time.Now().Unix()))
@@ -46,9 +46,9 @@ func (info *WechatInfo)GetNoLimitQRCode(t int64, i ...interface{}) (*QrCodeRes, 
 	return info.getQRCode(param)
 }
 
-func (info *WechatInfo)getQRCode(param []byte) (*QrCodeRes, error) {
+func (info *WechatInfo)getQRCode(param []byte) (*QrCode, error) {
 	url := fmt.Sprintf(Url_QRCode, info.AccessToken)
-	result := new(QrCodeRes)
+	result := new(QrCode)
 	b, err := HttpPostJson(url, param, &result)
 	if err != nil {
 		return nil, err

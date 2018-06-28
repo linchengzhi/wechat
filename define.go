@@ -40,18 +40,18 @@ type WechatInfo struct {
 	Pay               *PayConfig
 }
 
-type AccessTokenRes struct {
+type AccessToken struct {
 	AccessToken string `json:"access_token"`
 	ExpiresIn   int64  `json:"expires_in"`
 }
 
-type QrCodeRes struct {
+type QrCode struct {
 	Ticket        string `json:"ticket"`
 	ExpireSeconds int64  `json:"expire_seconds"`
 	Url           string `json:"url"`
 }
 
-type UserAccessTokenRes struct {
+type UserAccessToken struct {
 	AccessToken  string `json:"access_token"`
 	ExpiresIn    int64  `json:"expires_in"`
 	RefreshToken string `json:"refresh_token"`
@@ -60,7 +60,7 @@ type UserAccessTokenRes struct {
 	Unionid      string `json:"unionid"`
 }
 
-type UserInfoRes struct {
+type UserInfo struct {
 	OpenID     string   `json:"openid"`
 	Nickname   string   `json:"nickname"`
 	Sex        uint8    `json:"sex"`
@@ -145,7 +145,7 @@ type PayConfig struct {
 	TradeType     string
 }
 
-type OrderReq struct {
+type Order struct {
 	XMLName        xml.Name `xml:"xml"`
 	AppId          string   `xml:"appid"`                       //应用ID
 	MchId          string   `xml:"mch_id"`                      //商户号
@@ -171,7 +171,7 @@ type OrderReq struct {
 	SceneInfo      string   `json:"scene_info, omitempty"`      //场景信息
 }
 
-type OrderRes struct {
+type OrderResult struct {
 	XMLName       xml.Name `xml:"xml"`
 	ReturnCode    string   `xml:"return_code"`
 	ReturnMsg     string   `xml:"return_msg"`
@@ -201,7 +201,7 @@ type OrderRes struct {
 	MwebUrl       string   `xml:"mweb_url"`
 }
 
-type QueryRes struct {
+type QueryResult struct {
 	XMLName        xml.Name `xml:"xml"`
 	AppId          string   `xml:"appid"`
 	Attach         string   `xml:"attach"`
