@@ -2,7 +2,8 @@ package wechat
 
 import "encoding/xml"
 
-func (info *WechatInfo) AnalyzeAll(str []byte, v interface{}) (*PushAll, error) {
+//不知道返回的是什么消息
+func AnalyzeAll(str []byte) (*PushAll, error) {
 	result := new(PushAll)
 	if err := xml.Unmarshal(str, &result); err != nil {
 		return nil, err
@@ -13,7 +14,8 @@ func (info *WechatInfo) AnalyzeAll(str []byte, v interface{}) (*PushAll, error) 
 	return result, nil
 }
 
-func (info *WechatInfo) AnalyzeMessage(str []byte) (*PushMessage, error) {
+//普通消息
+func AnalyzeMessage(str []byte) (*PushMessage, error) {
 	result := new(PushMessage)
 	if err := xml.Unmarshal(str, &result); err != nil {
 		return nil, err
@@ -23,8 +25,8 @@ func (info *WechatInfo) AnalyzeMessage(str []byte) (*PushMessage, error) {
 	}
 	return result, nil
 }
-
-func (info *WechatInfo) AnalyzeEvent(str []byte) (*PushEvent, error) {
+//事件消息
+func AnalyzeEvent(str []byte) (*PushEvent, error) {
 	result := new(PushEvent)
 	if err := xml.Unmarshal(str, &result); err != nil {
 		return nil, err

@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"crypto/md5"
 	"reflect"
+	"encoding/xml"
 )
-
 
 func Sign(param map[string]string, token string) string {
 	newMap := make(map[string]string)
@@ -39,13 +39,13 @@ func SortAndConcat(param map[string]string) string {
 }
 
 func MapToXmlString(param map[string]string) string {
-	xml := "<xml>"
+	x := "<xml>"
 	for k, v := range param {
-		xml = xml + fmt.Sprintf("<%s>%s</%s>", k, v, k)
+		x = x + fmt.Sprintf("<%s>%s</%s>", k, v, k)
 	}
-	xml = xml + "</xml>"
+	x = x + "</xml>"
 
-	return xml
+	return x
 }
 
 func ToMap(in interface{}) (map[string]string, error) {
@@ -68,4 +68,13 @@ func ToMap(in interface{}) (map[string]string, error) {
 		}
 	}
 	return out, nil
+}
+
+func ParseOrderResult(resp []byte) (*OrderResult, error) {
+	result := new(OrderResult)
+	err := xml.Unmarshal(resp, &result)
+	if err != nil {
+		return result, err
+	}
+	return result, nil
 }
