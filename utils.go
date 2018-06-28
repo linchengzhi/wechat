@@ -7,6 +7,8 @@ import (
 	"crypto/md5"
 	"reflect"
 	"encoding/xml"
+	"strconv"
+	"time"
 )
 
 func Sign(param map[string]string, token string) string {
@@ -77,4 +79,9 @@ func ParseOrderResult(resp []byte) (*OrderResult, error) {
 		return result, err
 	}
 	return result, nil
+}
+
+func newRandStr() string {
+	nonce := strconv.FormatInt(time.Now().UnixNano(), 36)
+	return fmt.Sprintf("%x", md5.Sum([]byte(nonce)))
 }

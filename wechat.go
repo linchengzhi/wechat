@@ -1,16 +1,10 @@
 package wechat
 
-var Info *WechatInfo
-
 func NewWechatInfo(appId, secret string) *WechatInfo {
 	info := new(WechatInfo)
 	info.AppId = appId
 	info.AppSecret = secret
 	return info
-}
-
-func InitWechatInfo(appId, secret string) {
-	Info = NewWechatInfo(appId, secret)
 }
 
 //appId为空，则为默认

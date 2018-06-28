@@ -22,11 +22,6 @@ const (
 )
 
 const (
-	AppId     = "wxf7d80da736035817"
-	AppSecret = "76e906a4c165768eb8fed442e1cdbf97"
-)
-
-const (
 	Pay_Type_App = "APP"
 	Pay_Type_JS = "JSAPI"
 	Pay_Type_QRCode = "NATIVE"
