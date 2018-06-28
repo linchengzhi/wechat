@@ -11,6 +11,7 @@ import (
 	"time"
 )
 
+//签名算法
 func Sign(param map[string]string, token string) string {
 	newMap := make(map[string]string)
 	for k, v := range param {
@@ -27,6 +28,7 @@ func Sign(param map[string]string, token string) string {
 	return fmt.Sprintf("%X", md5.Sum([]byte(signWithKey)))
 }
 
+//map排序
 func SortAndConcat(param map[string]string) string {
 	var keys []string
 	for k := range param {
@@ -40,6 +42,7 @@ func SortAndConcat(param map[string]string) string {
 	return strings.Join(sortedParam, "&")
 }
 
+//map转string
 func MapToXmlString(param map[string]string) string {
 	x := "<xml>"
 	for k, v := range param {
@@ -50,6 +53,7 @@ func MapToXmlString(param map[string]string) string {
 	return x
 }
 
+//转map
 func ToMap(in interface{}) (map[string]string, error) {
 	out := make(map[string]string)
 
@@ -72,6 +76,7 @@ func ToMap(in interface{}) (map[string]string, error) {
 	return out, nil
 }
 
+//解析订单返回结果
 func ParseOrderResult(resp []byte) (*OrderResult, error) {
 	result := new(OrderResult)
 	err := xml.Unmarshal(resp, &result)
@@ -81,6 +86,7 @@ func ParseOrderResult(resp []byte) (*OrderResult, error) {
 	return result, nil
 }
 
+//随机参数
 func newRandStr() string {
 	nonce := strconv.FormatInt(time.Now().UnixNano(), 36)
 	return fmt.Sprintf("%x", md5.Sum([]byte(nonce)))

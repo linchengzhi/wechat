@@ -140,6 +140,7 @@ type PayConfig struct {
 	TradeType     string
 }
 
+//订单参数
 type Order struct {
 	XMLName        xml.Name `xml:"xml"`
 	AppId          string   `xml:"appid"`                       //应用ID
@@ -166,6 +167,7 @@ type Order struct {
 	SceneInfo      string   `json:"scene_info, omitempty"`      //场景信息
 }
 
+//下单返回结果
 type OrderResult struct {
 	XMLName       xml.Name `xml:"xml"`
 	ReturnCode    string   `xml:"return_code"`
@@ -196,6 +198,7 @@ type OrderResult struct {
 	MwebUrl       string   `xml:"mweb_url"`
 }
 
+//查询返回结果
 type QueryResult struct {
 	XMLName        xml.Name `xml:"xml"`
 	AppId          string   `xml:"appid"`
